@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# unmount any mounted fuse volumes
+if [ -d ~/pplx ]; then  
+    umount -f ~/pplx
+    rmdir ~/pplx
+    echo "pplx unmounted"
+else
+    echo "pplx not currently mounted"
+fi
+if [ -d ~/lxplus ]; then
+    umount -f ~/lxplus
+    rmdir ~/lxplus
+    echo "lxplus unmounted"
+else    
+    echo "lxplus not currently mounted"
+fi
+if [ -d ~/gangadir ]; then
+    umount -f ~/gangadir
+    rmdir ~/gangadir
+    echo "gangadir unmounted"
+else    
+    echo "gangadir not currently mounted"
+fi
+
