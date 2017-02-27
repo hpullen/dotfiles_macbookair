@@ -3,7 +3,8 @@ export TERM="xterm-256color"
 export EDITOR='vim'
 
 # Use macvim (needed for YouCompleteMe)
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias vim='/usr/local/Cellar/macvim/8.0-127/MacVim.app/Contents/MacOS/Vim'
 
 # ROOT
 # . ~/ROOT/bin/thisroot.sh
@@ -33,6 +34,7 @@ POWERLEVEL9K_BATTERY_LOW_COLOR='red'
 POWERLEVEL9K_BATTERY_ICON='\uf1e6 '
 # Time format
 POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M}"
+#POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-remotebranch git-tagname)
 # Left prompt: os icon, current directory, git info
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
 # Right prompt: return status of last command, battery level, time
@@ -74,7 +76,6 @@ alias lxplus="ssh -XY hpullen@lxplus.cern.ch"
 # General functions
 # cd and cls
 function cdl { cd "$@" && clear && ls; }
-alias cd="cdl"
 # Move contents of dir into a new subdir
 function mvToDir {
     DIRNAME="$1"
@@ -120,6 +121,9 @@ function mount_pplx {
         mkdir ~/pplx
         sshfs -o idmap=user pullen@pplxint8.physics.ox.ac.uk:/home/pullen ~/pplx
     fi
+    # Remove vcs from status if mounted (very slow due to git otherwise)
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir)
+    source $ZSH/oh-my-zsh.sh
 }
 function mount_lxplus {
     if [ -d ~/lxplus ]; then
@@ -159,6 +163,9 @@ function unmount_all {
     else
         echo "gangadir not currently mounted"
     fi
+    # Put back git status
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
+    source $ZSH/oh-my-zsh.sh
 }
 alias mp="mount_pplx && reloadDir"
 alias mg="mount_gangadir && reloadDir"

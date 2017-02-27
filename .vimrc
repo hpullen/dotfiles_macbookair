@@ -102,6 +102,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 " Tmux conf syntax highlighting
 Plug 'tmux-plugins/vim-tmux'
+" Solarized for color_coded
+Plug 'NigoroJr/color_coded-colorschemes'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
@@ -111,6 +113,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " YouCompleteMe autocompleter
 Plugin 'Valloric/YouCompleteMe'
+" Colour coding for C family
+Plugin 'jeaye/color_coded'
 call vundle#end()
 filetype plugin indent on
 
@@ -122,8 +126,7 @@ let g:airline#extensions#tabline#enabled=1
 
 " YouCompleteMe settings
 "let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/.ycm_extra_conf.py"
-let g:ycm_extra_conf = 0
-
+let g:ycm_confirm_extra_conf = 0
 
 " Syntastic settings
 set statusline+=%#warningmsg#
@@ -139,3 +142,5 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_loc_list_height=5
 nnoremap <silent> <leader>r :SyntasticReset<CR>
 
+" Color_coded solarized colorscheme
+colorscheme solarizeded
