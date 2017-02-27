@@ -100,6 +100,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-fugitive'
 " YCM generator
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+" Tmux conf syntax highlighting
+Plug 'tmux-plugins/vim-tmux'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
