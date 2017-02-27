@@ -2,6 +2,7 @@
 syntax enable
 set nocompatible
 set relativenumber
+set number  " Use both to get hybrid line number mode
 set mouse=nicr
 set autoindent
 set smartindent

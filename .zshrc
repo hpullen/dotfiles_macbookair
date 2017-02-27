@@ -34,9 +34,14 @@ POWERLEVEL9K_BATTERY_LOW_COLOR='red'
 POWERLEVEL9K_BATTERY_ICON='\uf1e6 '
 # Time format
 POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M}"
-#POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-remotebranch git-tagname)
+
 # Left prompt: os icon, current directory, git info
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
+# Depends on whether pplx is mounted
+if [ -d ~/pplx ] ; then
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir)
+else
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
+fi
 # Right prompt: return status of last command, battery level, time
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status battery time)	
 
@@ -104,6 +109,13 @@ function reloadDir {
     cd 
     cd $cwd
     clear && ls
+    # Turn vcs on or off depending on mounting
+    if [ -d ~/pplx ] ; then
+        POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir)
+    else
+        POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
+    fi
+    source $ZSH/oh-my-zsh.sh
 }
 # Copy contents of a directory to another directory
 function copyContents {
