@@ -1,0 +1,45 @@
+{
+	"segments": {
+		"right": [
+			{
+				"function": "powerline.segments.common.time.date",
+                "name": "date",
+                "args": {
+                    "format": "\uf073 %d/%m/%y"
+                }
+			},
+			{
+				"function": "powerline.segments.common.time.date",
+				"name": "time",
+				"args": {
+					"format": "\uf017 %H:%M",
+					"istime": true
+				}
+			},
+            {
+                "function": "powerline.segments.common.wthr.weather",
+                "name": "weather",
+                "args": {
+                    "unit": "C",
+                    "icons": {
+                        "day":           "⛅ ",
+                        "blustery":      "🌬️ ",
+                        "rainy":         "🌧️ ",
+                        "cloudy":        "☁️️ ",
+                        "snowy":         "🌨️ ",
+                        "stormy":        "⛈️ ",
+                        "foggy":         "🌫️ ",
+                        "sunny":         "☀️️ ",
+                        "night":         "🌙 ",
+                        "windy":         "🌪️ ",
+                        "not_available": "\uf059",
+                        "unknown":       "\uf06a"
+                    }
+                }
+            },
+			{
+				"function": "powerline.segments.common.net.hostname"
+			}
+		]
+	}
+}
