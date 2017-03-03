@@ -16,6 +16,7 @@ set lazyredraw
 set ttyfast
 set showmatch
 set colorcolumn=87
+set ruler
 set visualbell
 set t_Co=256
 inoremap jk <ESC>
@@ -33,6 +34,7 @@ nnoremap <silent> <leader><space> :noh<cr>
 vnoremap // y/\V<C-R>"<CR>  " Search for visually selected text
 
 " Tab settings
+filetype plugin indent on
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -40,6 +42,7 @@ set expandtab
 
 " Disable autocommenting on new lines
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+au FileType c,cpp setlocal comments-=:// comments+=f://
 
 " Strip all trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -68,12 +71,12 @@ nnoremap <silent> <Right> :bnext<CR>
 nnoremap j gj
 nnoremap k gk
 
-" Folding
-set foldenable
-set foldlevelstart=10
-set foldnestmax=10
-set foldmethod=syntax
-nnoremap <space> za
+"" Folding
+"set foldenable
+"set foldlevelstart=10
+"set foldnestmax=10
+"set foldmethod=syntax
+"nnoremap <space> za
 
 " Add restore_view plugin
 set runtimepath^=~/.vim/bundle/restore_view.vim
@@ -82,29 +85,35 @@ set runtimepath^=~/.vim/bundle/restore_view.vim
 set background=dark
 colorscheme solarized
 
+" Selectively turn off plugins
+" set runtimepath-=~/.vim/bundle/YouCompleteMe
+set runtimepath-=~/.vim/bundle/color_coded
+" set runtimepath-=~/.vim/bundle/nerdcommenter
+" set runtimepath-=~/.vim/bundle/restore_view.vim
+
 " Plugins
 " Vim-plug
 call plug#begin()
 " NerdCommenter autocommenting
 Plug 'scrooloose/nerdcommenter'
-" NerdTree file explorer
-Plug 'scrooloose/nerdtree'
-" Surroundings/parentheses changer e.g. cd(' changes () to ''
-Plug 'tpope/vim-surround'
-" Airline
+"" NerdTree file explorer
+"Plug 'scrooloose/nerdtree'
+"" Surroundings/parentheses changer e.g. cd(' changes () to ''
+"Plug 'tpope/vim-surround'
+"" Airline
 Plug 'vim-airline/vim-airline'
 " Airline themes
 Plug 'vim-airline/vim-airline-themes'
 " Syntastic
 Plug 'vim-syntastic/syntastic'
-" Fugitive
-Plug 'tpope/vim-fugitive'
+"" Fugitive
+"Plug 'tpope/vim-fugitive'
 " YCM generator
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
-" Tmux conf syntax highlighting
-Plug 'tmux-plugins/vim-tmux'
-" Solarized for color_coded
-Plug 'NigoroJr/color_coded-colorschemes'
+"" Tmux conf syntax highlighting
+"Plug 'tmux-plugins/vim-tmux'
+"" Solarized for color_coded
+"Plug 'NigoroJr/color_coded-colorschemes'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
@@ -115,7 +124,7 @@ Plugin 'VundleVim/Vundle.vim'
 " YouCompleteMe autocompleter
 Plugin 'Valloric/YouCompleteMe'
 " Colour coding for C family
-Plugin 'jeaye/color_coded'
+" Plugin 'jeaye/color_coded'
 call vundle#end()
 filetype plugin indent on
 
@@ -126,22 +135,23 @@ let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled=1
 
 " YouCompleteMe settings
-"let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/.ycm_extra_conf.py"
 let g:ycm_confirm_extra_conf = 0
 
 " Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+let g:syntastic_mode_map = { 'passive_filetypes': ['c', 'cpp'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_c_include_dirs = ['../../include','../include','../inc']
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_disabled_filetypes=['c','cpp']
 let g:syntastic_loc_list_height=5
 nnoremap <silent> <leader>r :SyntasticReset<CR>
 
 " Color_coded solarized colorscheme
-colorscheme solarizeded
+"colorscheme solarizeded
+
+" Timeout
+"set timeoutlen=1000
+"set ttimeoutlen=10

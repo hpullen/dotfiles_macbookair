@@ -48,7 +48,7 @@
 			}
 		},
 		"powerline.segments.common.net.hostname": {
-			"before": "\uf023 "
+			"before": "\uf179 "
 		},
 		"powerline.segments.common.bat.battery": {
 			"args": {

@@ -23,3 +23,6 @@ else
     echo "gangadir not currently mounted"
 fi
 
+# Detach any tmux sessions
+tmux detach
+

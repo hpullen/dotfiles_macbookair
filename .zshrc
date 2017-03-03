@@ -19,8 +19,8 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # PowerLevel9k settings
 # Shorten dir and status
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_beginning"
 POWERLEVEL9K_STATUS_VERBOSE="FALSE"
 # Colours for OS icon
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
@@ -31,7 +31,8 @@ POWERLEVEL9K_BATTERY_CHARGED='green'
 POWERLEVEL9K_BATTERY_DISCONNECTED='$DEFAULT_COLOR'
 POWERLEVEL9K_BATTERY_LOW_THRESHOLD='10'
 POWERLEVEL9K_BATTERY_LOW_COLOR='red'
-POWERLEVEL9K_BATTERY_ICON='\uf1e6 '
+POWERLEVEL9K_BATTERY_ICON=''
+#POWERLEVEL9K_BATTERY_ICON='\uf1e6 '
 # Time format
 POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M}"
 
@@ -46,7 +47,7 @@ fi
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status battery time)	
 
 # Display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="false"
 
 # Change the command execution time stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
@@ -133,9 +134,6 @@ function mount_pplx {
         mkdir ~/pplx
         sshfs -o idmap=user pullen@pplxint8.physics.ox.ac.uk:/home/pullen ~/pplx
     fi
-    # Remove vcs from status if mounted (very slow due to git otherwise)
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir)
-    source $ZSH/oh-my-zsh.sh
 }
 function mount_lxplus {
     if [ -d ~/lxplus ]; then
