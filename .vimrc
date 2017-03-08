@@ -12,7 +12,7 @@ set cursorline
 set encoding=utf-8
 set scrolloff=3
 set wildmenu
-set lazyredraw
+"set lazyredraw
 set ttyfast
 set showmatch
 set colorcolumn=87
@@ -87,7 +87,7 @@ colorscheme solarized
 
 " Selectively turn off plugins
 " set runtimepath-=~/.vim/bundle/YouCompleteMe
-set runtimepath-=~/.vim/bundle/color_coded
+"set runtimepath-=~/.vim/bundle/color_coded
 " set runtimepath-=~/.vim/bundle/nerdcommenter
 " set runtimepath-=~/.vim/bundle/restore_view.vim
 
@@ -97,7 +97,7 @@ call plug#begin()
 " NerdCommenter autocommenting
 Plug 'scrooloose/nerdcommenter'
 "" NerdTree file explorer
-"Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 "" Surroundings/parentheses changer e.g. cd(' changes () to ''
 "Plug 'tpope/vim-surround'
 "" Airline
@@ -113,7 +113,7 @@ Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 "" Tmux conf syntax highlighting
 "Plug 'tmux-plugins/vim-tmux'
 "" Solarized for color_coded
-"Plug 'NigoroJr/color_coded-colorschemes'
+Plug 'NigoroJr/color_coded-colorschemes'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
@@ -124,7 +124,7 @@ Plugin 'VundleVim/Vundle.vim'
 " YouCompleteMe autocompleter
 Plugin 'Valloric/YouCompleteMe'
 " Colour coding for C family
-" Plugin 'jeaye/color_coded'
+Plugin 'jeaye/color_coded'
 call vundle#end()
 filetype plugin indent on
 
@@ -150,8 +150,8 @@ let g:syntastic_loc_list_height=5
 nnoremap <silent> <leader>r :SyntasticReset<CR>
 
 " Color_coded solarized colorscheme
-"colorscheme solarizeded
+colorscheme solarizeded
 
 " Timeout
-"set timeoutlen=1000
-"set ttimeoutlen=10
+set timeoutlen=1000
+set ttimeoutlen=10

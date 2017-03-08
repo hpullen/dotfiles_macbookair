@@ -19,7 +19,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # PowerLevel9k settings
 # Shorten dir and status
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_beginning"
 POWERLEVEL9K_STATUS_VERBOSE="FALSE"
 # Colours for OS icon
@@ -78,6 +78,14 @@ unalias rm
 # ssh aliases
 alias pplx="ssh -XY pullen@pplxint8.physics.ox.ac.uk"
 alias lxplus="ssh -XY hpullen@lxplus.cern.ch"
+
+# Suffix aliases
+alias -s txt=vim
+alias -s C=vim
+alias -s cpp=vim
+alias -s h=vim
+alias -s hpp=vim
+alias -s py=vim
 
 # General functions
 # cd and cls
