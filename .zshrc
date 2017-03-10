@@ -59,6 +59,16 @@ plugins=(common-aliases git osx python pip zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
+# Apply settings to turn off some oh-my-zsh features whenever oh-my-zsh is loaded
+function modify_omz {
+    # Get rid of rm -i alias
+    unalias rm
+    # Stop sharing history between panes in tmux
+    setopt nosharehistory
+}
+# Apply function after 1st oh-my-zsh load
+modify_omz
+
 # Turn off autocorrection
 unsetopt correct
 
@@ -71,9 +81,6 @@ alias la="ls -a"
 alias c="clear"
 alias cls="clear && ls"	
 alias del="rmtrash"
-
-# Unalias rm -i from common-aliases plugin
-unalias rm
 
 # ssh aliases
 alias pplx="ssh -Y pullen@pplxint8.physics.ox.ac.uk"
@@ -125,6 +132,7 @@ function reloadDir {
         POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
     fi
     source $ZSH/oh-my-zsh.sh
+    modify_omz
 }
 # Copy contents of a directory to another directory
 function copyContents {
@@ -184,6 +192,7 @@ function unmount_all {
     # Put back git status
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
     source $ZSH/oh-my-zsh.sh
+    modify_omz
 }
 alias mp="mount_pplx && reloadDir"
 alias mg="mount_gangadir && reloadDir"

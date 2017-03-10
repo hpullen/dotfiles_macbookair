@@ -15,7 +15,7 @@ set wildmenu
 "set lazyredraw
 set ttyfast
 set showmatch
-set colorcolumn=87
+set colorcolumn=84
 set ruler
 set visualbell
 set t_Co=256
