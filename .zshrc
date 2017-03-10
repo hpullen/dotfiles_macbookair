@@ -76,8 +76,8 @@ alias del="rmtrash"
 unalias rm
 
 # ssh aliases
-alias pplx="ssh -XY pullen@pplxint8.physics.ox.ac.uk"
-alias lxplus="ssh -XY hpullen@lxplus.cern.ch"
+alias pplx="ssh -Y pullen@pplxint8.physics.ox.ac.uk"
+alias lxplus="ssh -Y hpullen@lxplus.cern.ch"
 
 # Suffix aliases
 alias -s txt=vim
