@@ -10,17 +10,17 @@ set undofile
 set backspace=indent,eol,start
 set cursorline
 set encoding=utf-8
-set scrolloff=3
+set scrolloff=6
 set wildmenu
 "set lazyredraw
 set ttyfast
 set showmatch
-set colorcolumn=84
+set colorcolumn=85
 set ruler
 set visualbell
 set t_Co=256
 inoremap jk <ESC>
-nnoremap ; :
+"nnoremap ; :
 
 " Modify search options
 nnoremap / /\v
@@ -87,9 +87,7 @@ colorscheme solarized
 
 " Selectively turn off plugins
 " set runtimepath-=~/.vim/bundle/YouCompleteMe
-set runtimepath-=~/.vim/bundle/color_coded
-" set runtimepath-=~/.vim/bundle/nerdcommenter
-" set runtimepath-=~/.vim/bundle/restore_view.vim
+"set runtimepath-=~/.vim/bundle/color_coded
 
 " Plugins
 " Vim-plug
@@ -98,8 +96,6 @@ call plug#begin()
 Plug 'scrooloose/nerdcommenter'
 "" NerdTree file explorer
 Plug 'scrooloose/nerdtree'
-"" Surroundings/parentheses changer e.g. cd(' changes () to ''
-"Plug 'tpope/vim-surround'
 "" Airline
 Plug 'vim-airline/vim-airline'
 " Airline themes
@@ -110,10 +106,8 @@ Plug 'vim-syntastic/syntastic'
 "Plug 'tpope/vim-fugitive'
 " YCM generator
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
-"" Tmux conf syntax highlighting
-"Plug 'tmux-plugins/vim-tmux'
 "" Solarized for color_coded
-"Plug 'NigoroJr/color_coded-colorschemes'
+Plug 'NigoroJr/color_coded-colorschemes'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
@@ -124,7 +118,7 @@ Plugin 'VundleVim/Vundle.vim'
 " YouCompleteMe autocompleter
 Plugin 'Valloric/YouCompleteMe'
 " Colour coding for C family
-"Plugin 'jeaye/color_coded'
+Plugin 'jeaye/color_coded'
 call vundle#end()
 filetype plugin indent on
 
@@ -137,6 +131,8 @@ let g:airline#extensions#tabline#enabled=1
 " YouCompleteMe settings
 let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/.ycm_extra_conf.py"
 let g:ycm_confirm_extra_conf = 0
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
 
 " Syntastic settings
 let g:syntastic_mode_map = { 'passive_filetypes': ['c', 'cpp'] }
@@ -150,8 +146,8 @@ let g:syntastic_loc_list_height=5
 nnoremap <silent> <leader>r :SyntasticReset<CR>
 
 " Color_coded solarized colorscheme
-"colorscheme solarizeded
+colorscheme solarizeded
 
 " Timeout
-set timeoutlen=1000
-set ttimeoutlen=10
+set timeoutlen=200
+set ttimeoutlen=200
