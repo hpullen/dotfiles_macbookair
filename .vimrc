@@ -151,3 +151,10 @@ colorscheme solarizeded
 " Timeout
 set timeoutlen=200
 set ttimeoutlen=200
+
+" Common spelling mistakes autocorrect
+iab stdLLcout std::cout
+iab stdLLendl; std::endl;
+
+" Easy insert bash shebang
+iab shebang #!/usr/bin/env bash
