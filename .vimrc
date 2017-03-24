@@ -15,12 +15,16 @@ set wildmenu
 "set lazyredraw
 set ttyfast
 set showmatch
+set textwidth=84
 set colorcolumn=85
 set ruler
 set visualbell
 set t_Co=256
 inoremap jk <ESC>
 "nnoremap ; :
+
+" Make Y behave like C and D
+nnoremap Y y$
 
 " Modify search options
 nnoremap / /\v
