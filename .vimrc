@@ -55,10 +55,14 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 "noremap <ScrollWheelUp> <C-Y>
 "nnoremap <ScrollWheelDown <C-E>
 
-" Create equals signs before/after line of text
+" Create equals signs after line of text
 nnoremap <silent> <leader>1 yypVr=
-nnoremap <silent> <leader>2 yykpVr=
-nnoremap <silent> <leader>3 yypVr=kyykpVr=
+" Python comments
+nnoremap <silent> <leader>2 I#<space><esc>yyPVr=0r#lr<space>jyypVr=0r#lr<space>
+" C comments
+noremap <silent> <leader>3 I//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<space>
+" std::cout
+noremap <silent> <leader>4 Istd::cout<space><<<space>"<esc>A"<space><<<space>std::endl;<esc>
 
 " Copy to system clipboard in visual mode
 vnoremap <silent> <leader>y "+y
@@ -112,6 +116,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 "" Solarized for color_coded
 Plug 'NigoroJr/color_coded-colorschemes'
+" Tabularize
+Plug 'godlygeek/tabular'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
