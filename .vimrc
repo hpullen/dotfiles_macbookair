@@ -10,7 +10,7 @@ set undofile
 set backspace=indent,eol,start
 set cursorline
 set encoding=utf-8
-set scrolloff=6
+set scrolloff=8
 set wildmenu
 "set lazyredraw
 set ttyfast
@@ -27,8 +27,6 @@ inoremap jk <ESC>
 nnoremap Y y$
 
 " Modify search options
-nnoremap / /\v
-vnoremap / /\v
 set ignorecase
 set smartcase
 set gdefault
@@ -38,6 +36,7 @@ nnoremap <silent> <leader><space> :noh<cr>
 vnoremap // y/\V<C-R>"<CR>  " Search for visually selected text
 
 " Tab settings
+filetype off
 filetype plugin indent on
 set tabstop=4
 set softtabstop=4
@@ -61,8 +60,10 @@ nnoremap <silent> <leader>1 yypVr=
 nnoremap <silent> <leader>2 I#<space><esc>yyPVr=0r#lr<space>jyypVr=0r#lr<space>
 " C comments
 noremap <silent> <leader>3 I//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<space>
+" Regenerate C comments
+noremap <silent> <leader>4 kddjddk^3xI//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<space>
 " std::cout
-noremap <silent> <leader>4 Istd::cout<space><<<space>"<esc>A"<space><<<space>std::endl;<esc>
+noremap <silent> <leader>5 Istd::cout<space><<<space>"<esc>A"<space><<<space>std::endl;<esc>
 
 " Copy to system clipboard in visual mode
 vnoremap <silent> <leader>y "+y
@@ -168,3 +169,7 @@ iab stdLLendl; std::endl;
 
 " Easy insert bash shebang
 iab shebang #!/usr/bin/env bash
+
+" Syntax highlighting for parameter files
+highlight ParamValue ctermfg=cyan guifg=#00ffff
+highlight ParamKey ctermfg=magenta  guifg=#00ffff
