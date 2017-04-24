@@ -26,6 +26,11 @@ inoremap jk <ESC>
 " Make Y behave like C and D
 nnoremap Y y$
 
+" Split line with K
+nnoremap K i<CR><ESC>
+nnoremap <leader>k i"<CR>"<ESC>
+nnoremap <leader>j i'<CR>'<ESC>
+
 " Modify search options
 set ignorecase
 set smartcase
@@ -154,7 +159,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_disabled_filetypes=['c','cpp']
 let g:syntastic_loc_list_height=5
-nnoremap <silent> <leader>r :SyntasticReset<CR>
+nnoremap <leader>r :SyntasticReset<CR>
+nnoremap <leader>s :SyntasticToggleMode<CR>
 
 " Color_coded solarized colorscheme
 colorscheme solarizeded

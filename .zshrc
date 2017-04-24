@@ -55,7 +55,7 @@ HIST_STAMPS="dd/mm/yyyy"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(common-aliases git osx python pip zsh-syntax-highlighting)
+plugins=(common-aliases cp git osx python pip zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
