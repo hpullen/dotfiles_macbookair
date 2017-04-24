@@ -151,7 +151,7 @@ set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
 
 " Syntastic settings
-let g:syntastic_mode_map = { 'passive_filetypes': ['c', 'cpp'] }
+let g:syntastic_mode_map = { 'passive_filetypes': ['c', 'cpp', 'python'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
