@@ -12,7 +12,7 @@ set cursorline
 set encoding=utf-8
 set scrolloff=8
 set wildmenu
-"set lazyredraw
+set lazyredraw
 set ttyfast
 set showmatch
 set textwidth=84
@@ -21,7 +21,16 @@ set ruler
 set visualbell
 set t_Co=256
 inoremap jk <ESC>
-"nnoremap ; :
+
+" More natural split settings
+set splitright
+set splitbelow
+
+" Map alt+hjkl to split movements
+nnoremap ∆ <C-w>j
+nnoremap ˚ <C-w>k
+nnoremap ˙ <C-w>h
+nnoremap ¬ <C-w>l
 
 " Make Y behave like C and D
 nnoremap Y y$
@@ -85,12 +94,13 @@ nnoremap <silent> <Right> :bnext<CR>
 nnoremap j gj
 nnoremap k gk
 
-"" Folding
-"set foldenable
-"set foldlevelstart=10
-"set foldnestmax=10
-"set foldmethod=syntax
-"nnoremap <space> za
+" Folding
+set foldenable
+set foldnestmax=5
+set foldlevelstart=5
+set foldmethod=syntax
+" Open/close folds with space
+nnoremap <space> za
 
 " Add restore_view plugin
 set runtimepath^=~/.vim/bundle/restore_view.vim
@@ -140,26 +150,36 @@ filetype plugin indent on
 
 " Airline settings
 set laststatus=2
+" Use powerline fonts
 let g:airline_powerline_fonts=1
+" Solarized colorscheme for airline
 let g:airline_theme = 'solarized'
+" Show buffers/tabs at top
 let g:airline#extensions#tabline#enabled=1
+" Show filename only in buffer/tab display
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 " YouCompleteMe settings
+" Default extra conf location
 let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/.ycm_extra_conf.py"
+" Don't ask whether to use extra conf
 let g:ycm_confirm_extra_conf = 0
+" Turn off annoying extra window
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
 
 " Syntastic settings
+" Turn off by default for c/cpp (using ycm) and python (annoying for davinci/ganga)
 let g:syntastic_mode_map = { 'passive_filetypes': ['c', 'cpp', 'python'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" Use flake8 (pep8 style check + syntax check)
 let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_disabled_filetypes=['c','cpp']
-let g:syntastic_loc_list_height=5
-nnoremap <leader>r :SyntasticReset<CR>
+" Don't let error list get too big
+let g:syntastic_loc_list_height=4
+" Toggle active/passive mode with \s
 nnoremap <leader>s :SyntasticToggleMode<CR>
 
 " Color_coded solarized colorscheme
@@ -168,10 +188,6 @@ colorscheme solarizeded
 " Timeout
 set timeoutlen=200
 set ttimeoutlen=200
-
-" Common spelling mistakes autocorrect
-iab stdLLcout std::cout
-iab stdLLendl; std::endl;
 
 " Easy insert bash shebang
 iab shebang #!/usr/bin/env bash
