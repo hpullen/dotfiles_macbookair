@@ -192,6 +192,17 @@ Plugin 'jeaye/color_coded'
 call vundle#end()
 filetype plugin indent on
 
+" NERDcommenter settings
+" Add spaces after comment delimiter by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for multiline comments
+let g:NERDCompactSexyComs = 1
+" Trim trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Open NERDTree with ctrl-n
+noremap <C-n> :NERDTreeToggle<CR>
+
 " Airline settings
 set laststatus=2
 " Use powerline fonts
