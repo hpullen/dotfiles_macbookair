@@ -44,6 +44,9 @@ set t_Co=256
 set splitright
 set splitbelow
 
+" Add restore_view plugin
+set runtimepath^=~/.vim/bundle/restore_view.vim
+
 " Map alt + hjkl to split movements
 nnoremap ∆ <C-w>j
 nnoremap ˚ <C-w>k
@@ -124,8 +127,9 @@ set foldmethod=syntax
 " Open/close folds with space
 nnoremap <space> za
 
-" Add restore_view plugin
-"set runtimepath^=~/.vim/bundle/restore_view.vim
+" Save and reload view on closing/opening a buffer
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview 
 
 " Colourscheme
 set background=dark
