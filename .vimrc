@@ -40,12 +40,13 @@ set visualbell
 " Allow bright colours
 set t_Co=256
 
+" Auto write buffer/auto read if there are changes
+set autowrite
+set autoread
+
 " More natural split settings
 set splitright
 set splitbelow
-
-" Add restore_view plugin
-set runtimepath^=~/.vim/bundle/restore_view.vim
 
 " Map alt + hjkl to split movements
 nnoremap ∆ <C-w>j
@@ -121,7 +122,9 @@ nnoremap k gk
 
 " Folding
 set foldenable
-set foldnestmax=5
+" Only allow one level of folding
+set foldnestmax=1
+" Start with all folds open
 set foldlevelstart=5
 set foldmethod=syntax
 " Open/close folds with space
@@ -241,10 +244,13 @@ nnoremap <leader>s :SyntasticToggleMode<CR>
 " Mappings
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+noremap <c-b> :CtrlPBuffer<CR>
+" Increase number of results shown in search
+let g:ctrlp_match_window = 'results:20'
+" Open multiple files in same window
+let g:ctrlp_open_multiple_files = 'r'
 " Set working directory to nearest ancestor containing .git
 let g:ctrlp_working_path_mode = 'ra'
-" If file already open, open again in new pane
-let g:ctrlp_switch_buffer = 'et'
 " Files to ignore
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
@@ -259,4 +265,6 @@ colorscheme solarizeded
 
 " Syntax highlighting for parameter files
 highlight ParamValue ctermfg=cyan guifg=#00ffff
+
+
 highlight ParamKey ctermfg=magenta  guifg=#00ffff
