@@ -40,10 +40,6 @@ set visualbell
 " Allow bright colours
 set t_Co=256
 
-" Auto write buffer/auto read if there are changes
-set autowrite
-set autoread
-
 " More natural split settings
 set splitright
 set splitbelow
@@ -104,6 +100,9 @@ noremap <silent> <leader>4 kddjddk^3xI//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=
 " Put quotes and std::cout around line
 noremap <silent> <leader>5 Istd::cout<space><<<space>"<esc>A"<space><<<space>std::endl;<esc>
 
+" Abbreviation for std::endl;
+iab endl << std::endl;
+
 " Copy to system clipboard in visual mode with \y
 vnoremap <silent> <leader>y "+y
 " Paste from system clipboard with \p
@@ -125,7 +124,7 @@ set foldenable
 " Only allow one level of folding
 set foldnestmax=1
 " Start with all folds open
-set foldlevelstart=5
+set foldlevelstart=0
 set foldmethod=syntax
 " Open/close folds with space
 nnoremap <space> za
@@ -248,7 +247,7 @@ noremap <c-b> :CtrlPBuffer<CR>
 " Increase number of results shown in search
 let g:ctrlp_match_window = 'results:20'
 " Open multiple files in same window
-let g:ctrlp_open_multiple_files = 'r'
+let g:ctrlp_open_multiple_files = '1vjr'
 " Set working directory to nearest ancestor containing .git
 let g:ctrlp_working_path_mode = 'ra'
 " Files to ignore
@@ -263,8 +262,10 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 " Color_coded solarized colorscheme
 colorscheme solarizeded
 
+" Still autoindent with delimitmate
+let delimitMate_expand_cr = 1
+let delimirMate_expand_space = 1
+
 " Syntax highlighting for parameter files
 highlight ParamValue ctermfg=cyan guifg=#00ffff
-
-
 highlight ParamKey ctermfg=magenta  guifg=#00ffff
