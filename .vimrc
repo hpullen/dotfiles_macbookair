@@ -99,9 +99,11 @@ noremap <silent> <leader>3 I//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<s
 noremap <silent> <leader>4 kddjddk^3xI//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<space>
 " Put quotes and std::cout around line
 noremap <silent> <leader>5 Istd::cout<space><<<space>"<esc>A"<space><<<space>std::endl;<esc>
+" Convert normal object to pointer
+noremap <silent> <leader>6 ^ywwwi = new pxbbbbbea*^
 
 " Abbreviation for std::endl;
-iab endl << std::endl;
+iab endl std::endl;
 
 " Copy to system clipboard in visual mode with \y
 vnoremap <silent> <leader>y "+y
@@ -180,6 +182,8 @@ Plug 'tpope/vim-repeat'
 Plug 'raimondi/delimitmate'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
+" Undo visualization
+Plug 'mbbill/undotree'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
@@ -205,6 +209,9 @@ let g:NERDTrimTrailingWhitespace = 1
 " Open NERDTree with ctrl-n
 noremap <C-n> :NERDTreeToggle<CR>
 
+" Open undotree with ctrl-u
+noremap <C-u> :UndotreeToggle<CR>
+
 " Airline settings
 set laststatus=2
 " Use powerline fonts
@@ -224,6 +231,9 @@ let g:ycm_confirm_extra_conf = 0
 " Turn off annoying extra window
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
+
+" Use FixIt tool with \f
+noremap <leader>f :YcmCompleter FixIt<CR>
 
 " Syntastic settings
 " Turn off by default for c/cpp (using ycm) and python (annoying for davinci/ganga)
