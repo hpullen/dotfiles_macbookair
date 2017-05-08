@@ -168,10 +168,10 @@ Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 Plug 'NigoroJr/color_coded-colorschemes'
 " Tabularize
 Plug 'godlygeek/tabular'
-" Fugitive
-Plug 'tpope/vim-fugitive'
-" Gitgutter
-Plug 'airblade/vim-gitgutter'
+" " Fugitive
+" Plug 'tpope/vim-fugitive'
+" " Gitgutter
+" Plug 'airblade/vim-gitgutter'
 " Surround
 Plug 'tpope/vim-surround'
 " Abolish
@@ -209,8 +209,8 @@ let g:NERDTrimTrailingWhitespace = 1
 " Open NERDTree with ctrl-n
 noremap <C-n> :NERDTreeToggle<CR>
 
-" Open undotree with ctrl-u
-noremap <C-u> :UndotreeToggle<CR>
+" Open undotree with \u
+nnoremap <leader>u :UndotreeToggle<CR>
 
 " Airline settings
 set laststatus=2
