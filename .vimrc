@@ -101,6 +101,8 @@ noremap <silent> <leader>4 kddjddk^3xI//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=
 noremap <silent> <leader>5 Istd::cout<space><<<space>"<esc>A"<space><<<space>std::endl;<esc>
 " Convert normal object to pointer
 noremap <silent> <leader>6 ^ywwwi = new pxbbbbbea*^
+" Setup new class src file
+noremap <silent> <leader>7 "adiwi#include ""apa.hpp"o// ===========// Constructor// ==========="apa::"apa() {}// ==========// Destructor// =========="apa::~"apa() {}
 
 " Abbreviation for std::endl;
 iab endl std::endl;
