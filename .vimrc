@@ -44,12 +44,6 @@ set t_Co=256
 set splitright
 set splitbelow
 
-" Map alt + hjkl to split movements
-nnoremap ∆ <C-w>j
-nnoremap ˚ <C-w>k
-nnoremap ˙ <C-w>h
-nnoremap ¬ <C-w>l
-
 " Make Y behave like C and D (yank to end of line)
 nnoremap Y y$
 
@@ -83,34 +77,28 @@ set shiftwidth=4
 set expandtab
 
 " Disable autocommenting on new lines
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-au FileType c,cpp setlocal comments-=:// comments+=f://
+augroup filetype_C
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+    autocmd FileType c,cpp setlocal comments-=:// comments+=f://
+    autocmd FileType c,cpp noremap <buffer> <silent> <leader>3 I//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<space>
+    autocmd FileType c,cpp noremap <buffer> <silent> <leader>4 kddjddk^3xI//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<space>
+    autocmd FileType c,cpp noremap <buffer> <silent> <leader>5 Istd::cout<space><<<space>"<esc>A"<space><<<space>std::endl;<esc>
+augroup END
 
 " Strip all trailing whitespace with \W
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
-" Create equals signs after line of text
-nnoremap <silent> <leader>1 yypVr=
-" Surround line with Python comments 
-nnoremap <silent> <leader>2 I#<space><esc>yyPVr=0r#lr<space>jyypVr=0r#lr<space>
-" Surround line with C comments
-noremap <silent> <leader>3 I//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<space>
-" Regenerate C comments around line
-noremap <silent> <leader>4 kddjddk^3xI//<space><esc>yyPVr=0r/lr/lr<space>jyypVr=0r/lr/lr<space>
-" Put quotes and std::cout around line
-noremap <silent> <leader>5 Istd::cout<space><<<space>"<esc>A"<space><<<space>std::endl;<esc>
-" Convert normal object to pointer
-noremap <silent> <leader>6 ^ywwwi = new pxbbbbbea*^
-" Setup new class src file
-noremap <silent> <leader>7 "adiwi#include ""apa.hpp"o// ===========// Constructor// ==========="apa::"apa() {}// ==========// Destructor// =========="apa::~"apa() {}
-
-" Abbreviation for std::endl;
-iab endl std::endl;
 
 " Copy to system clipboard in visual mode with \y
 vnoremap <silent> <leader>y "+y
 " Paste from system clipboard with \p
 nnoremap <silent> <leader>p "+p
+" Paste from pplx tmux clipboard file with \tp
+nnoremap <silent> <leader>tp :r ~/pplx/.tmux.clipboard<CR>
+" Paste from pplx vim clipboard with \vp
+nnoremap <silent> <leader>vp :r ~/pplx/.vim.clipboard<CR>
+" Select last pasted text with gp
+nnoremap gp `[v`]
 
 " Toggle paste mode on and off with F3
 set pastetoggle=<F3>
@@ -130,12 +118,14 @@ set foldnestmax=1
 " Start with all folds open
 set foldlevelstart=0
 set foldmethod=syntax
-" Open/close folds with space
-nnoremap <space> za
 
 " Save and reload view on closing/opening a buffer
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview 
+set viewoptions-=options
+augroup saveView
+    autocmd!
+    autocmd BufWinLeave *.* mkview! 
+    autocmd BufWinEnter *.* silent loadview
+augroup END
 
 " Colourscheme
 set background=dark
@@ -145,11 +135,68 @@ colorscheme solarized
 set timeoutlen=200
 set ttimeoutlen=200
 
-" Easy insert bash shebang
-iab shebang #!/usr/bin/env bash
+" Fix highlight colour in Sneak (need to call before colorscheme)
+augroup fixSneakHighlight
+    autocmd!
+    autocmd ColorScheme * hi Sneak guifg=black guibg=red ctermfg=black ctermbg=red
+    autocmd ColorScheme * hi SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
+    autocmd ColorScheme * hi SneakLabel guifg=white guibg=magenta ctermfg=white ctermbg=green
+augroup END
+
+" Use spellcheck in text files
+augroup filetype_text
+    autocmd!
+    autocmd FileType text nnoremap <buffer> <silent> <leader>1 yypVr=
+    autocmd FileType text setlocal spell
+    autocmd FileType text setlocal textwidth=0
+    autocmd FileType text noremap <buffer> <leader>8 ?^\p\s<CR>ygnjPv0r<space>^
+augroup END
+
+" Latex autocommands
+augroup filetype_tex
+    autocmd!
+    autocmd FileType tex,plaintex,latex setlocal textwidth=0
+    autocmd FileType tex,plaintex,latex setlocal spell
+    autocmd FileType tex,plaintex,latex setlocal dictionary+=~/.vim/dictionaries/dictionary
+    autocmd FileType tex,plaintex,latex inoremap <buffer> <c-d> <c-x><c-k>
+    autocmd FileType tex,plaintex,latex nnoremap <buffer> <leader>ee me?\\begin{[^}]\+}<CR>ygn<ESC>'eo<ESC>pBlceend<ESC>==:nohlsearch<CR>
+    autocmd FileType tex,plaintex,latex nnoremap <buffer> <leader>ed /\u\u\.<CR>f.i\@<ESC>
+    autocmd FileType tex,plaintex,latex let b:ycm_largefile=1
+    autocmd FileType tex,plaintex,latex hi clear texItalStyle
+    autocmd BufWritePre tex,plaintex,latex hi clear texItalStyle
+augroup END
+
+" Vim file autocommands
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal shortmess+=c
+    autocmd FileType vim setlocal textwidth=0
+    autocmd FileType vim setlocal wrap
+augroup END
+
+" Python file autocommands
+augroup filetype_python
+    autocmd!
+    autocmd Filetype python nnoremap <buffer><silent> <leader>2 I#<space><esc>yyPVr=0r#lr<space>jyypVr=0r#lr<space>
+    autocmd Filetype python setlocal nosmartindent
+augroup END
+
+" Timeout
+set timeoutlen=200
+set ttimeoutlen=200
 
 " Files to ignore in vim wild search
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.root,*.o,*.un~
+
+" Use British english when spellchecking
+set spelllang=en_gb
+
+" Toggle text wrapping with ]t and [t
+nnoremap [os :setlocal tw=80
+nnoremap ]os :setlocal tw=0
+
+" Use matchit
+packadd! matchit
 
 " Plugins
 " Vim-plug
@@ -172,8 +219,8 @@ Plug 'NigoroJr/color_coded-colorschemes'
 Plug 'godlygeek/tabular'
 " " Fugitive
 " Plug 'tpope/vim-fugitive'
-" " Gitgutter
-" Plug 'airblade/vim-gitgutter'
+" Gitgutter
+Plug 'airblade/vim-gitgutter'
 " Surround
 Plug 'tpope/vim-surround'
 " Abolish
@@ -186,6 +233,28 @@ Plug 'raimondi/delimitmate'
 Plug 'ctrlpvim/ctrlp.vim'
 " Undo visualization
 Plug 'mbbill/undotree'
+" Buffer closing without closing window (use :Bd)
+Plug 'moll/vim-bbye'
+" Autocomplete words from other tmux panes with <C-X><C-U>
+Plug 'wellle/tmux-complete.vim'
+" Snippet engine
+Plug 'SirVer/ultisnips'
+" Better incremental searching
+Plug 'haya14busa/incsearch.vim'
+" Easy aligning
+Plug 'junegunn/vim-easy-align'
+" 2-character version of f and t
+Plug 'justinmk/vim-sneak'
+" Mappings
+Plug 'tpope/vim-unimpaired'
+" More word objects
+Plug 'wellle/targets.vim'
+" Vim latex
+Plug 'lervag/vimtex'
+" Bullet points
+Plug 'dkarter/bullets.vim'
+" Easy vim-tmux navigation
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
@@ -278,6 +347,45 @@ colorscheme solarizeded
 let delimitMate_expand_cr = 1
 let delimirMate_expand_space = 1
 
-" Syntax highlighting for parameter files
-highlight ParamValue ctermfg=cyan guifg=#00ffff
-highlight ParamKey ctermfg=magenta  guifg=#00ffff
+" Sneak remappings
+map + <Plug>Sneak_s
+map - <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+" easy-align mappings
+xmap ga <plug>(easyalign)
+nmap ga <plug>(easyalign)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Incsearch mappings
+" Use incsearch instead of standard
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+" Turn off highlighting when cursor moves
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+" Ultisnips settings
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsSnippetsDir="~/.vim/myUltiSnips"
+let g:UltiSnipsSnippetDirectories = ['myUltiSnips']
+
+" Filetypes to use Bullets.vim
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit',
+    \ 'scratch',
+    \ 'tex'
+     \]
