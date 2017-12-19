@@ -22,18 +22,18 @@
                 "args": {
                     "unit": "C",
                     "icons": {
-                        "day":           "⛅ ",
-                        "blustery":      "🌬️ ",
-                        "rainy":         "🌧️ ",
-                        "cloudy":        "☁️️ ",
-                        "snowy":         "🌨️ ",
-                        "stormy":        "⛈️ ",
-                        "foggy":         "🌫️ ",
-                        "sunny":         "☀️️ ",
-                        "night":         "🌙 ",
-                        "windy":         "🌪️ ",
-                        "not_available": "\uf059",
-                        "unknown":       "\uf06a"
+                        "day":           "\ue21d ",
+                        "blustery":      "\ue27e ",
+                        "rainy":         "\ue220 ",
+                        "cloudy":        " ",
+                        "snowy":         "\uf2dc ",
+                        "stormy":        " ",
+                        "foggy":         " ",
+                        "sunny":         "\ue214 ",
+                        "night":         " ",
+                        "windy":         " ",
+                        "unknown": "\uf059",
+                        "not_available": "\uf06a"
                     }
                 }
             },

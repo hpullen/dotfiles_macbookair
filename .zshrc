@@ -1,19 +1,20 @@
-# Export environment variables
-export TERM="xterm-256color"
-export EDITOR='vim'
+# Save current directory
+CWD="`pwd`"
 
-# Use macvim (needed for YouCompleteMe)
-#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+# Export environment variabes
+export TERM='xterm-256color'
+export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
+
+# Use macvim instead of vim
 alias vim='/usr/local/Cellar/macvim/8.0-127/MacVim.app/Contents/MacOS/Vim'
 
-# ROOT
-# . ~/ROOT/bin/thisroot.sh
+# ROOT setup
 alias root="root -l"
 
-# Path to your oh-my-zsh installation.
+# Path to oh-my-zsh installation
 export ZSH=/Users/pullen/.oh-my-zsh
 
-# Set name of the theme to load.
+# Set theme
 POWERLEVEL9K_MODE='awesome-fontconfig'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
@@ -22,19 +23,55 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_beginning"
 POWERLEVEL9K_STATUS_VERBOSE="FALSE"
+
+# Change colours for dir
+POWERLEVEL9K_DIR_HOME_BACKGROUND="none"
+POWERLEVEL9K_DIR_HOME_FOREGROUND="blue"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="none"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="blue"
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="none"
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="blue"
+
 # Colours for OS icon
-POWERLEVEL9K_OS_ICON_BACKGROUND="white"
-POWERLEVEL9K_OS_ICON_FOREGROUND="black"
+POWERLEVEL9K_OS_ICON_BACKGROUND="none"
+POWERLEVEL9K_OS_ICON_FOREGROUND="default"
+
+# Colours for status of command
+POWERLEVEL9K_STATUS_ERROR_BACKGROUND='none'
+POWERLEVEL9K_FAIL_ICON=''
+
 # Battery symbols and colours
 POWERLEVEL9K_BATTERY_CHARGING='yellow'
 POWERLEVEL9K_BATTERY_CHARGED='green'
 POWERLEVEL9K_BATTERY_DISCONNECTED='$DEFAULT_COLOR'
 POWERLEVEL9K_BATTERY_LOW_THRESHOLD='10'
 POWERLEVEL9K_BATTERY_LOW_COLOR='red'
-POWERLEVEL9K_BATTERY_ICON=''
-#POWERLEVEL9K_BATTERY_ICON='\uf1e6 '
+POWERLEVEL9K_BATTERY_ICON=''
+POWERLEVEL9K_BATTERY_VERBOSE=false
+POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND='none'
+POWERLEVEL9K_BATTERY_CHARGING_BACKGROUND='none'
+POWERLEVEL9K_BATTERY_LOW_BACKGROUND='none'
+POWERLEVEL9K_BATTERY_CHARGED_BACKGROUND='none'
+# POWERLEVEL9K_BATTERY_ICON=' '
+
+# Segment separators
+POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='%F{default}  '
+POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
+POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='%F{default}|'
+POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='%F{default}|'
+
+# Git colours
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND='none'
+POWERLEVEL9K_VCS_CLEAN_FOREGROUND='green'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='none'
+POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='yellow'
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='none'
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='yellow'
+
 # Time format
 POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M}"
+POWERLEVEL9K_TIME_FOREGROUND="default"
+POWERLEVEL9K_TIME_BACKGROUND="none"
 
 # Left prompt: os icon, current directory, git info
 # Depends on whether pplx is mounted
@@ -43,82 +80,93 @@ if [ -d ~/pplx ] ; then
 else
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
 fi
+
 # Right prompt: return status of last command, battery level, time
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status battery time)	
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs tmux battery time)    
 
 # Display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="false"
 
-# Change the command execution time stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# History time stamp format
 HIST_STAMPS="dd/mm/yyyy"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(common-aliases cp git osx python pip zsh-syntax-highlighting)
+# Don't store commands starting with space in history
+setopt HIST_IGNORE_SPACE
 
+# Plugins to load
+plugins=(common-aliases git fancy-ctrl-z osx extract python pip fast-syntax-highlighting solarized-man)
+
+# Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# Apply settings to turn off some oh-my-zsh features whenever oh-my-zsh is loaded
+# Turn off some oh-my-zsh features whenever oh-my-zsh is loaded
 function modify_omz {
     # Get rid of rm -i alias
     unalias rm
     # Stop sharing history between panes in tmux
     setopt nosharehistory
 }
-# Apply function after 1st oh-my-zsh load
+# Apply function on first load
 modify_omz
+
+# Directory colours
+# For normal ls, solarized-like colorscheme
+export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+# For GNU ls use solarized dark colorscheme
+eval `gdircolors /Users/pullen/clone/dircolors-solarized/dircolors.ansi-dark`
+# Use solarized in zsh tab completion
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Turn off autocorrection
 unsetopt correct
 
 # General aliases
-alias zshrc="vim ~/.zshrc"
-alias sourcez="source ~/.zshrc"
-alias vimrc="vim ~/.vimrc"
-alias ls="ls -G"
-alias la="ls -a"
+alias zshrc="/Applications/MacVim.app/Contents/MacOS/Vim ~/.zshrc"
+alias zr="source ~/.zshrc"
+alias vimrc="/Applications/MacVim.app/Contents/MacOS/Vim ~/.vimrc"
 alias c="clear"
-alias cls="clear && ls"	
 alias del="rmtrash"
+alias dirs="dirs -v"
+alias cdirs="builtin dirs -c"
+alias grep="grep -i -I --color" # Case insensitive colored grep
+alias pipes="pipes.sh -t \$(( (RANDOM % 10) ))"
+
+# Aliases with space (don't store in history)
+# Use GNU ls for colors
+alias ls=" gls --color=auto --group-directories-first"
+alias la=" gls -a --color=auto --group-directories-first"
+alias ll=" gls -lh --color=auto --group-directories-first"
+alias lt=" gls -ltFh --color=auto"
+alias cls=" clear && gls --color=auto --group-directories-first"
+alias cd=" cd"
+
+# Use colordiff instead of diff
+alias diff=colordiff
+
+# Look at weather
+alias weather="curl wttr.in"
 
 # ssh aliases
 alias pplx="ssh -Y pullen@pplxint8.physics.ox.ac.uk"
 alias lxplus="ssh -Y hpullen@lxplus.cern.ch"
 
-# Suffix aliases
-alias -s txt=vim
-alias -s C=vim
-alias -s cpp=vim
-alias -s h=vim
-alias -s hpp=vim
-alias -s py=vim
+# Suffix aliases (automatically open these files in vim)
+alias -s txt=$EDITOR
+alias -s C=$EDITOR
+alias -s cpp=$EDITOR
+alias -s h=$EDITOR
+alias -s hpp=$EDITOR
+alias -s py=$EDITOR
 
-# General functions
-# cd and cls
-function cdl { cd "$@" && clear && ls; }
-# Move contents of dir into a new subdir
-function mvToDir {
-    DIRNAME="$1"
-    mkdir ../$DIRNAME
-    mv * ../$DIRNAME
-    mv ../$DIRNAME .
-}
-# Delete all files in directory except one
-function delAllExcept {
-    FILENAME="$1"
-    mv $FILENAME ..
-    del *
-    mv ../$FILENAME .
-}
-# Restore deleted files
-function restore { 
-    FILENAME="$1"
-    TRASHPATH="~/.Trash/$FILENAME"
-    mv "$TRASHPATH" .
-}
-# Mark the location of a directory to return to later
-function mark { export $1="`pwd`"; }
+# CDPATH: contains path to pplx analysis code
+export CDPATH=/Users/hannahpullen/pplx/analysis/tuple_scripts/analysis_code/
+
+# Load zmv. Use -n to show what will be done, without executing
+autoload -U zmv
+
+# Load zcalc (command line calculator)
+autoload -Uz zcalc
+
 # Reload directory if it has broken (e.g. due to closed ssh connection)
 function reloadDir { 
     cwd="`pwd`"
@@ -134,91 +182,57 @@ function reloadDir {
     source $ZSH/oh-my-zsh.sh
     modify_omz
 }
-# Copy contents of a directory to another directory
-function copyContents {
-    OLDDIR='$1'
-    NEWDIR='$2'
-    cp -r "$OLDDIR/*" $NEWDIR
-}
-alias cpc='copyContents'
 
-# Remote directory mounting
-function mount_pplx {
-    if [ -d ~/pplx ] ; then
-        echo "pplx already mounted"
-    else
-        mkdir ~/pplx
-        sshfs -o idmap=user pullen@pplxint8.physics.ox.ac.uk:/home/pullen ~/pplx
-    fi
-}
-function mount_lxplus {
-    if [ -d ~/lxplus ]; then
-        echo "lxplus already mounted"
-    else
-        mkdir ~/lxplus
-        sshfs -o idmap=user hpullen@lxplus.cern.ch:/afs/cern.ch/work/h/hpullen ~/lxplus
-    fi
-}
-function mount_gangadir {
-    if [ -d ~/gangadir ]; then
-        echo "gangadir already mounted"
-    else
-        mkdir ~/gangadir
-        sshfs -o idmap=user pullen@pplxint9.physics.ox.ac.uk:/data/lhcb/users/pullen/gangadir ~/gangadir
-    fi
-}
-function unmount_all {
-    if [ -d ~/pplx ]; then
-        umount -f ~/pplx
-        rmdir ~/pplx
-        echo "pplx unmounted"
-    else
-        echo "pplx not currently mounted"
-    fi
-    if [ -d ~/lxplus ]; then
-        umount -f ~/lxplus
-        rmdir ~/lxplus
-        echo "lxplus unmounted"
-    else
-        echo "lxplus not currently mounted"
-    fi
-    if [ -d ~/gangadir ]; then
-        umount -f ~/gangadir
-        rmdir ~/gangadir
-        echo "gangadir unmounted"
-    else
-        echo "gangadir not currently mounted"
-    fi
-    # Put back git status
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
-    source $ZSH/oh-my-zsh.sh
-    modify_omz
-}
-alias mp="mount_pplx && reloadDir"
-alias mg="mount_gangadir && reloadDir"
-
-# Unmount when exiting
-alias exit="unmount_all && exit"
-
-# tmux related aliases and functions
+# Tmux aliases
 alias ks="tmux kill-session"
 alias kp="tmux kill-pane"
 alias kw="tmux kill-window"
 alias td="tmux detach"
-# Split tmux into three panes for coding
-function tmux_coding {
-    tmux split-window -h\;
-    tmux split-window -v -p 20
-}
-# Get rid of all panes except the first
-function tmux_normal {
-    tmux kill-pane -a -t 0
-}
-# If in tmux, detach rather than exit
-function exit {
-    if [[ -z $TMUX ]]; then
-        builtin exit
-    else
-        tmux detach
-    fi
-}
+
+alias songname="spotify status | /usr/bin/grep Track && spotify status | /usr/bin/grep Artist || echo 'No song is playing!'"
+
+# Colour for autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10"
+
+# Source custom functions
+for file in ~/.custom_functions/*.sh; do
+    source $file
+done
+source ~/.custom_functions/*.sh
+
+# Custom function aliases
+alias cpc='copyContents'
+alias mp="mount_pplx && reloadDir"
+alias mg="mount_gangadir && reloadDir"
+
+# Chunk aliases
+alias chunk="brew services start chunkwm && brew services start khd"
+alias chunk_quit="brew services stop chunkwm && brew services stop khd"
+alias chunk_window="chunkc tiling::window"
+alias chunk_desktop="chunkc tiling::desktop"
+# alias chunkw="chunkc tiling::window"
+# alias chunkd="chunkc tiling::desktop"
+# alias chunk_start="brew services start chunkwm"
+# alias chunk_stop="brew services stop chunkwm"
+# alias chunk_restart="brew services restart chunkwm"
+# alias chunk_swap="chunkc tiling::window --swap"
+# alias chunk_left="chunk_swap west"
+# alias chunk_right="chunk_swap east"
+# alias chunk_up="chunk_swap north"
+# alias chunk_down="chunk_swap south"
+# alias chunk_warp="chunkc tiling::window --warp"
+# alias chunk_laptop="chunkc tiling::window --send-to-desktop 2"
+# alias chunk_monitor="chunkc tiling::window --send-to-desktop 1"
+# alias chunk_float="chunkc tiling::window --toggle float"
+# alias chunk_fullscreen="chunkc tiling::window --toggle fullscreen"
+# alias chunk_split="chunkc tiling::window --toggle split"
+# alias chunk_pad_more="chunkc tiling::desktop --padding inc"
+# alias chunk_pad_less="chunkc tiling::desktop --padding dec"
+# alias chunk_offset="chunkc tiling::desktop --toggle offset"
+# alias chunk_next="chunkc tiling::monitor -f next"
+# alias chunk_prev="chunkc tiling::monitor -f prev"
+
+# cd to previous working directory
+cd $CWD
+# clear
+# sh ~/.custom_functions/greeting.sh

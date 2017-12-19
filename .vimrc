@@ -1,11 +1,11 @@
-" General settings
+" General settings 
 " Syntax highlighting
 syntax enable
 " No need to be compatible with vi
 set nocompatible
 " Hybrid line number mode
 set relativenumber
-set number  
+set number
 " Allow mouse usage
 set mouse=nicr
 " Auto/smart indentation
@@ -53,6 +53,12 @@ nnoremap K i<CR><ESC>
 nnoremap <leader>k i"<CR>"<ESC>
 nnoremap <leader>j i'<CR>'<ESC>
 
+" Tab navigation
+nnoremap <silent> <C-[> :tabprev<CR>
+nnoremap <silent> <C-]> :tabnext<CR>
+nnoremap <C-n> :tabnew<CR>
+unmap <esc>
+
 " Modify search options
 " Smart case sensitivity
 set ignorecase
@@ -66,7 +72,7 @@ set hlsearch
 " Turn off highlight with \<space>
 nnoremap <silent> <leader><space> :noh<cr>
 " Search for visually selected text with //
-vnoremap // y/\V<C-R>"<CR>  
+vnoremap // y/\V<C-R>"<CR>
 
 " Tab settings
 filetype off
@@ -100,6 +106,13 @@ nnoremap <silent> <leader>vp :r ~/pplx/.vim.clipboard<CR>
 " Select last pasted text with gp
 nnoremap gp `[v`]
 
+" Mappings for editing/sourcing vimrc
+nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
+
+" Type a pomodoro
+iab pomo 
+
 " Toggle paste mode on and off with F3
 set pastetoggle=<F3>
 
@@ -111,12 +124,15 @@ nnoremap <silent> <Right> :bnext<CR>
 nnoremap j gj
 nnoremap k gk
 
+" Dictionary for completion
+" set dictionary+=/usr/share/dict/words
+
 " Folding
 set foldenable
 " Only allow one level of folding
 set foldnestmax=1
 " Start with all folds open
-set foldlevelstart=0
+set foldlevelstart=1
 set foldmethod=syntax
 
 " Save and reload view on closing/opening a buffer
@@ -127,13 +143,11 @@ augroup saveView
     autocmd BufWinEnter *.* silent loadview
 augroup END
 
-" Colourscheme
-set background=dark
-colorscheme solarized
-
-" Timeout
-set timeoutlen=200
-set ttimeoutlen=200
+" Turn off gitgutter on pplx files
+" augroup pplxFiles
+    " autocmd!
+    " autocmd BufWinEnter */pplx/* GitGutterDisable
+" augroup END
 
 " Fix highlight colour in Sneak (need to call before colorscheme)
 augroup fixSneakHighlight
@@ -150,6 +164,11 @@ augroup filetype_text
     autocmd FileType text setlocal spell
     autocmd FileType text setlocal textwidth=0
     autocmd FileType text noremap <buffer> <leader>8 ?^\p\s<CR>ygnjPv0r<space>^
+    autocmd FileType text hi SpellBad ctermfg=red
+    autocmd FileType text hi SpellCap ctermfg=yellow
+    autocmd FileType text set colorcolumn=0
+    " Don't spellcheck all caps words
+    autocmd FileType text syn match myExCapitalWords +\<\w*[A-Z]\K*\>+ contains=@NoSpell
 augroup END
 
 " Latex autocommands
@@ -158,11 +177,13 @@ augroup filetype_tex
     autocmd FileType tex,plaintex,latex setlocal textwidth=0
     autocmd FileType tex,plaintex,latex setlocal spell
     autocmd FileType tex,plaintex,latex setlocal dictionary+=~/.vim/dictionaries/dictionary
+    autocmd FileType tex,plaintex,latex setlocal colorcolumn=0
     autocmd FileType tex,plaintex,latex inoremap <buffer> <c-d> <c-x><c-k>
     autocmd FileType tex,plaintex,latex nnoremap <buffer> <leader>ee me?\\begin{[^}]\+}<CR>ygn<ESC>'eo<ESC>pBlceend<ESC>==:nohlsearch<CR>
     autocmd FileType tex,plaintex,latex nnoremap <buffer> <leader>ed /\u\u\.<CR>f.i\@<ESC>
     autocmd FileType tex,plaintex,latex let b:ycm_largefile=1
     autocmd FileType tex,plaintex,latex hi clear texItalStyle
+    autocmd FileType tex,plaintex,latex iab ± $\pm$
     autocmd BufWritePre tex,plaintex,latex hi clear texItalStyle
 augroup END
 
@@ -180,6 +201,10 @@ augroup filetype_python
     autocmd Filetype python nnoremap <buffer><silent> <leader>2 I#<space><esc>yyPVr=0r#lr<space>jyypVr=0r#lr<space>
     autocmd Filetype python setlocal nosmartindent
 augroup END
+
+" Colourscheme
+set background=dark
+colorscheme solarized
 
 " Timeout
 set timeoutlen=200
@@ -201,12 +226,14 @@ packadd! matchit
 " Plugins
 " Vim-plug
 call plug#begin()
+" Pencil colorscheme
+Plug 'reedes/vim-colors-pencil'
 " NerdCommenter autocommenting
 Plug 'scrooloose/nerdcommenter'
 " NerdTree file explorer
 Plug 'scrooloose/nerdtree'
-" Airline
-Plug 'vim-airline/vim-airline'
+" " Airline
+" Plug 'vim-airline/vim-airline'
 " Airline themes
 Plug 'vim-airline/vim-airline-themes'
 " Syntastic
@@ -215,9 +242,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 " Solarized for color_coded
 Plug 'NigoroJr/color_coded-colorschemes'
-" Tabularize
-Plug 'godlygeek/tabular'
-" " Fugitive
+" Fugitive
 " Plug 'tpope/vim-fugitive'
 " Gitgutter
 Plug 'airblade/vim-gitgutter'
@@ -225,11 +250,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 " Abolish
 Plug 'tpope/vim-abolish'
-" Repeat for surround and abolish
+" Repeat for tpope plugins
 Plug 'tpope/vim-repeat'
 " Automatic bracket closing
 Plug 'raimondi/delimitmate'
-" CtrlP
+" Fuzzy file search
 Plug 'ctrlpvim/ctrlp.vim'
 " Undo visualization
 Plug 'mbbill/undotree'
@@ -253,8 +278,22 @@ Plug 'wellle/targets.vim'
 Plug 'lervag/vimtex'
 " Bullet points
 Plug 'dkarter/bullets.vim'
+" Hardmode (no hjkl, arrows, pgup/down)
+Plug 'wikitopian/hardmode'
 " Easy vim-tmux navigation
 Plug 'christoomey/vim-tmux-navigator'
+" Distraction-free writing environment
+Plug 'junegunn/goyo.vim'
+" Vim devicons
+Plug 'ryanoasis/vim-devicons'
+" Visual split
+Plug 'wellle/visual-split.vim'
+" Easy window resizing
+Plug 'simeji/winresizer'
+" Lighter status bar
+Plug 'itchyny/lightline.vim'
+" NERDtree syntax highlighting
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
@@ -278,21 +317,36 @@ let g:NERDCompactSexyComs = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 " Open NERDTree with ctrl-n
-noremap <C-n> :NERDTreeToggle<CR>
+noremap <silent> <leader>n :NERDTreeToggle<CR>
 
 " Open undotree with \u
-nnoremap <leader>u :UndotreeToggle<CR>
+nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
 " Airline settings
 set laststatus=2
-" Use powerline fonts
-let g:airline_powerline_fonts=1
-" Solarized colorscheme for airline
-let g:airline_theme = 'solarized'
-" Show buffers/tabs at top
-let g:airline#extensions#tabline#enabled=1
-" Show filename only in buffer/tab display
-let g:airline#extensions#tabline#fnamemod = ':t'
+set noshowmode
+let g:lightline = {'colorscheme': 'solarized'}
+
+" Toggle status 
+function! ToggleStatus()
+    if &laststatus
+        set laststatus=0
+        set showtabline=0
+    else 
+        set laststatus=2
+        set showtabline=1
+    endif
+endfunction
+nnoremap <silent> <leader>tt :call ToggleStatus()<CR>
+
+" " Use powerline fonts
+" let g:airline_powerline_fonts=1
+" " Solarized colorscheme for airline
+" let g:airline_theme = 'solarized'
+" " Show buffers/tabs at top
+" let g:airline#extensions#tabline#enabled=1
+" " Show filename only in buffer/tab display
+" let g:airline#extensions#tabline#fnamemod = ':t'
 
 " YouCompleteMe settings
 " Default extra conf location
@@ -317,8 +371,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 " Don't let error list get too big
 let g:syntastic_loc_list_height=4
-" Toggle active/passive mode with \s
-nnoremap <leader>s :SyntasticToggleMode<CR>
+" Toggle active/passive mode with \st
+nnoremap <leader>st :SyntasticToggleMode<CR>
 
 " CtrlP settings
 " Mappings
@@ -374,6 +428,9 @@ map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
+" Toggle rainbow parentheses (in style of Unimpaired)
+map cop :RainbowParentheses!!<CR>
+
 " Ultisnips settings
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
@@ -389,3 +446,45 @@ let g:bullets_enabled_file_types = [
     \ 'scratch',
     \ 'tex'
      \]
+
+" Devicons settings
+" Pattern matches
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['\.sh\.e\d\+'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['\.sh\.o\d\+'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['\.tar\.gz'] = ''
+" Exact filename matches
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['makefile'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['.gitignore'] = ''
+" Custom extensions
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['cut'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['param'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['o'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['log'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['root'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['pdf'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tex'] = ''
+
+" Open Goyo
+nnoremap <silent> <leader>g :Goyo<CR>
+
+" Colour modifications
+function! s:highlight()
+    hi VertSplit ctermfg=0 ctermbg=0
+    hi EndOfBuffer cterm=bold ctermfg=0
+    hi SignColumn ctermbg=8
+    hi GitGutterAdd ctermbg=8 ctermfg=2
+    hi GitGutterChange ctermbg=8 ctermfg=3
+    hi GitGutterDelete ctermbg=8 ctermfg=1
+    hi GitGutterChangeDelete ctermbg=8 ctermfg=1
+    hi LineNr ctermbg=8 ctermfg=10 
+endfunction
+augroup my_highlights
+    autocmd!
+    autocmd ColorScheme * call s:highlight()
+augroup end
+call s:highlight()
+
+
