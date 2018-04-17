@@ -147,7 +147,7 @@ alias diff=colordiff
 alias weather="curl wttr.in"
 
 # ssh aliases
-alias pplx="ssh -Y pullen@pplxint8.physics.ox.ac.uk"
+alias pplx="ssh -Y -i ~/.ssh/hannah_air pullen@pplxint8.physics.ox.ac.uk"
 alias lxplus="ssh -Y hpullen@lxplus.cern.ch"
 
 # Suffix aliases (automatically open these files in vim)
