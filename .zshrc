@@ -130,6 +130,7 @@ alias dirs="dirs -v"
 alias cdirs="builtin dirs -c"
 alias grep="grep -i -I --color" # Case insensitive colored grep
 alias pipes="pipes.sh -t \$(( (RANDOM % 10) ))"
+alias lth="lt | head"
 
 # Aliases with space (don't store in history)
 # Use GNU ls for colors
@@ -163,6 +164,16 @@ export CDPATH=/Users/hannahpullen/pplx/analysis/tuple_scripts/analysis_code/
 
 # Load zmv. Use -n to show what will be done, without executing
 autoload -U zmv
+
+# Write display to file on login to a non-tmux shell
+if [ -z "$TMUX" ]
+then 
+    echo $DISPLAY > ~/.display
+fi
+# Function to fix display in tmux
+function fix_display {
+    export DISPLAY=`cat ~/.display`
+}
 
 # Load zcalc (command line calculator)
 autoload -Uz zcalc

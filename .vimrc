@@ -16,7 +16,7 @@ set undofile
 " Backspace can erase multiple characters
 set backspace=indent,eol,start
 " Highlight current line
-set cursorline
+" set cursorline
 " UTF8 encoding
 set encoding=utf-8
 " Show at least 10 lines between cursor and end of screen
@@ -26,13 +26,13 @@ set wildmenu
 " Only redraw when needed
 set lazyredraw
 " Indicate fast terminal
-set ttyfast
+" set ttyfast
 " Highlight matching bracket
 set showmatch
 " Wrap text at 84 characters
 set textwidth=84
 " Highlight column 85
-set colorcolumn=85
+" set colorcolumn=85
 " Show line/column number
 set ruler
 " Flash for bell
@@ -275,7 +275,7 @@ Plug 'tpope/vim-unimpaired'
 " More word objects
 Plug 'wellle/targets.vim'
 " Vim latex
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
 " Bullet points
 Plug 'dkarter/bullets.vim'
 " Hardmode (no hjkl, arrows, pgup/down)
@@ -291,9 +291,11 @@ Plug 'wellle/visual-split.vim'
 " Easy window resizing
 Plug 'simeji/winresizer'
 " Lighter status bar
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 " NERDtree syntax highlighting
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" " Touch typing
+" Plug 'vim-scripts/TTCoach'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
@@ -302,8 +304,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " YouCompleteMe autocompleter
-Plugin 'Valloric/YouCompleteMe'
-" Colour coding for C family languages
+" Plugin 'Valloric/YouCompleteMe'
+" " Colour coding for C family languages
 Plugin 'jeaye/color_coded'
 call vundle#end()
 filetype plugin indent on
@@ -487,4 +489,8 @@ augroup my_highlights
 augroup end
 call s:highlight()
 
+hi Normal guibg=NONE ctermbg=NONE
 
+" No status bar
+set laststatus=0
+set showtabline=0
