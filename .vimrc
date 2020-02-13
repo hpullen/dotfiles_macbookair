@@ -73,6 +73,8 @@ set hlsearch
 nnoremap <silent> <leader><space> :noh<cr>
 " Search for visually selected text with //
 vnoremap // y/\V<C-R>"<CR>
+" Google translate text
+command! -range Tr <line1>,<line2>!trans 2> /dev/null | sed -n '3p' | sed 's/^.\{4\}\(.*\).\{5\}/\1/'
 
 " Tab settings
 filetype off

@@ -175,6 +175,13 @@ function fix_display {
     export DISPLAY=`cat ~/.display`
 }
 
+
+# Kill process using a specific port
+function kill_port {
+    PORT=$1
+    lsof -ti:$1 | xargs kill -9
+}
+
 # Load zcalc (command line calculator)
 autoload -Uz zcalc
 
