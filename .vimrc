@@ -176,6 +176,7 @@ augroup END
 " Latex autocommands
 augroup filetype_tex
     autocmd!
+    autocmd FileType tex,latex setlocal filetype=plaintex
     autocmd FileType tex,plaintex,latex setlocal textwidth=0
     autocmd FileType tex,plaintex,latex setlocal spell
     autocmd FileType tex,plaintex,latex setlocal dictionary+=~/.vim/dictionaries/dictionary
@@ -301,16 +302,16 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 
 " Vundle (needed for YouCompleteMe)
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-" YouCompleteMe autocompleter
-" Plugin 'Valloric/YouCompleteMe'
-" " Colour coding for C family languages
-Plugin 'jeaye/color_coded'
-call vundle#end()
-filetype plugin indent on
+" filetype off
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" Plugin 'VundleVim/Vundle.vim'
+" " YouCompleteMe autocompleter
+" " Plugin 'Valloric/YouCompleteMe'
+" " " Colour coding for C family languages
+" " Plugin 'jeaye/color_coded'
+" call vundle#end()
+" filetype plugin indent on
 
 " NERDcommenter settings
 " Add spaces after comment delimiter by default
@@ -496,3 +497,6 @@ hi Normal guibg=NONE ctermbg=NONE
 " No status bar
 set laststatus=0
 set showtabline=0
+
+" No visual bell
+set novb

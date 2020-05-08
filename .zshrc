@@ -1,15 +1,16 @@
 # Save current directory
 CWD="`pwd`"
+# source ~/.bash_profile
 
 # Export environment variabes
 export TERM='xterm-256color'
 export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
 
 # Use macvim instead of vim
-alias vim='/usr/local/Cellar/macvim/8.0-127/MacVim.app/Contents/MacOS/Vim'
+# alias vim='vim'
 
 # ROOT setup
-alias root="root -l"
+# alias root="root -l"
 
 # Path to oh-my-zsh installation
 export ZSH=/Users/pullen/.oh-my-zsh
@@ -121,9 +122,9 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 unsetopt correct
 
 # General aliases
-alias zshrc="/Applications/MacVim.app/Contents/MacOS/Vim ~/.zshrc"
+alias zshrc="vim ~/.zshrc"
 alias zr="source ~/.zshrc"
-alias vimrc="/Applications/MacVim.app/Contents/MacOS/Vim ~/.vimrc"
+alias vimrc="vim ~/.vimrc"
 alias c="clear"
 alias del="rmtrash"
 alias dirs="dirs -v"
@@ -148,7 +149,7 @@ alias diff=colordiff
 alias weather="curl wttr.in"
 
 # ssh aliases
-alias pplx="ssh -Y -i ~/.ssh/hannah_air pullen@pplxint8.physics.ox.ac.uk"
+alias pplx="ssh -Y -i ~/.ssh/hannah_air pullen@pplxint11.physics.ox.ac.uk"
 alias lxplus="ssh -Y hpullen@lxplus.cern.ch"
 
 # Suffix aliases (automatically open these files in vim)
