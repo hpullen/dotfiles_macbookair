@@ -176,7 +176,7 @@ augroup END
 " Latex autocommands
 augroup filetype_tex
     autocmd!
-    autocmd FileType tex,latex setlocal filetype=plaintex
+    autocmd FileType tex,latex setlocal textwidth=0
     autocmd FileType tex,plaintex,latex setlocal textwidth=0
     autocmd FileType tex,plaintex,latex setlocal spell
     autocmd FileType tex,plaintex,latex setlocal dictionary+=~/.vim/dictionaries/dictionary
@@ -184,7 +184,6 @@ augroup filetype_tex
     autocmd FileType tex,plaintex,latex inoremap <buffer> <c-d> <c-x><c-k>
     autocmd FileType tex,plaintex,latex nnoremap <buffer> <leader>ee me?\\begin{[^}]\+}<CR>ygn<ESC>'eo<ESC>pBlceend<ESC>==:nohlsearch<CR>
     autocmd FileType tex,plaintex,latex nnoremap <buffer> <leader>ed /\u\u\.<CR>f.i\@<ESC>
-    autocmd FileType tex,plaintex,latex let b:ycm_largefile=1
     autocmd FileType tex,plaintex,latex hi clear texItalStyle
     autocmd FileType tex,plaintex,latex iab ± $\pm$
     autocmd BufWritePre tex,plaintex,latex hi clear texItalStyle
@@ -353,14 +352,6 @@ nnoremap <silent> <leader>tt :call ToggleStatus()<CR>
 " " Show filename only in buffer/tab display
 " let g:airline#extensions#tabline#fnamemod = ':t'
 
-" YouCompleteMe settings
-" Default extra conf location
-let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/.ycm_extra_conf.py"
-" Don't ask whether to use extra conf
-let g:ycm_confirm_extra_conf = 0
-" Turn off annoying extra window
-set completeopt-=preview
-let g:ycm_add_preview_to_completeopt = 0
 
 " Use FixIt tool with \f
 noremap <leader>f :YcmCompleter FixIt<CR>

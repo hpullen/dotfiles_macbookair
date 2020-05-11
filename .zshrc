@@ -4,10 +4,10 @@ CWD="`pwd`"
 
 # Export environment variabes
 export TERM='xterm-256color'
-export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
+export EDITOR='/usr/local/Cellar/macvim/8.2-163/MacVim.app/Contents/MacOS/Vim'
 
 # Use macvim instead of vim
-# alias vim='vim'
+alias vim='/usr/local/Cellar/macvim/8.2-163/MacVim.app/Contents/MacOS/Vim'
 
 # ROOT setup
 # alias root="root -l"
