@@ -151,6 +151,7 @@ alias weather="curl wttr.in"
 # ssh aliases
 alias pplx="ssh -Y -i ~/.ssh/hannah_air pullen@pplxint11.physics.ox.ac.uk"
 alias lxplus="ssh -Y hpullen@lxplus.cern.ch"
+alias cam="ssh -i .ssh/id_rsa_cam -XY hpullen@pcnk.hep.phy.cam.ac.uk"
 
 # Suffix aliases (automatically open these files in vim)
 alias -s txt=$EDITOR
